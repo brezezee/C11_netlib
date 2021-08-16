@@ -67,7 +67,8 @@ void TcpConnection::Send(const std::string &s)
 	{
 		asyncprocessing_ = false; //异步调用结束
 		//std::cout << "asyncprocessing_" << std::endl;
-		loop_->AddTask(std::bind(&TcpConnection::SendInLoop, shared_from_this()));//跨线程调用,加入IO线程的任务队列，唤醒
+		//跨线程调用,加入IO线程的任务队列，唤醒
+		loop_->AddTask(std::bind(&TcpConnection::SendInLoop, shared_from_this()));
 	}
 }
 
@@ -75,6 +76,7 @@ void TcpConnection::Send(const std::string &s)
 void TcpConnection::SendInLoop()
 {
     //bufferout_ += s;//copy一次	
+	// 可能已退出，但是定时器绑定的任务执行，同时定时器拥有智能指针，保留了它的生命周期
 	if(disconnected_)
 	{	
 		return;
@@ -100,13 +102,13 @@ void TcpConnection::SendInLoop()
 		}
     }
     else if(result < 0)
-    {        
+    {
 		HandleError();
     }
 	else
 	{
 		HandleClose();
-	}     
+	}
 }
 
 

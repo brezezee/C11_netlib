@@ -1,47 +1,15 @@
-//
-//
-//Timer类，定时器
-//
-
 #include "Timer.h"
-#include <sys/time.h>
-#include "TimerManager.h"
 
-Timer::Timer(int timeout, TimerType timertype, const CallBack &timercallback)
-    : timeout_(timeout),
-    timertype_(timertype),
-    timercallback_(timercallback),
-    rotation(0),
-    timeslot(0),
-    prev(nullptr),
-    next(nullptr)
-{
-    if(timeout < 0)
-        return;
-    // struct timeval tv;
-    // gettimeofday(&tv, NULL);
-    // timeout_ = (tv.tv_sec % 10000) * 1000 + tv.tv_usec / 1000 + timeout;
+Timer::Timer(uint32_t id, int64_t trigger_time, int64_t interval_time, const TaskCallback& handler)
+    : interval_time_(interval_time)
+    , repeated_(interval_time_ > 0)   // 根据是否设置间隔时间 判断是否需要重复
+    , trigger_time_(trigger_time)
+    , id_(id)
+    , task_(handler) {
 }
 
-Timer::~Timer()
-{
-    Stop();
-}
-
-void Timer::Start()
-{
-    TimerManager::GetTimerManagerInstance()->AddTimer(this);
-}
-
-void Timer::Stop()
-{
-    TimerManager::GetTimerManagerInstance()->RemoveTimer(this);
-}
-
-void Timer::Adjust(int timeout, Timer::TimerType timertype, const CallBack &timercallback)
-{
-    timeout_ = timeout;
-    timertype_ = timertype;
-    timercallback_ = timercallback;
-    TimerManager::GetTimerManagerInstance()->AdjustTimer(this);
+void Timer::execute() {
+  if (task_) {
+    task_();
+  }
 }

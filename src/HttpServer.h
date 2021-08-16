@@ -14,7 +14,7 @@
 #include "HttpSession.h"
 #include "ThreadPool.h"
 #include "Timer.h"
-
+//#include "TimeWheelManager_impl.h"
 
 class HttpServer
 {
@@ -52,7 +52,8 @@ private:
     std::map<spTcpConnection, std::shared_ptr<HttpSession> > httpsessionnlist_; 
 
     //管理定时器,维护活跃连接
-    std::map<spTcpConnection, spTimer> timerlist_; 
+    // std::map<spTcpConnection, spTimer> timerlist_; 
+    std::map<spTcpConnection, uint32_t> timerlist_; 
 
     //保护以上两个map的互斥量
     std::mutex mutex_; 

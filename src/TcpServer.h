@@ -45,7 +45,7 @@ public:
     {
         messagecallback_ = cb;
     }
-
+ 
     //注册数据发送完成回调函数
     void SetSendCompleteCallback(const Callback &cb)
     { 

@@ -1,61 +1,39 @@
-//
-//
-//Timer类，定时器，生命周期由用户自行管理
-//
+#pragma once
 
-#ifndef _TIMER_H_
-#define _TIMER_H_
-
-
+#include <cstdint>
 #include <functional>
+#include <memory>
 
-class Timer
-{
+using  TaskCallback = std::function<void()>;
+
+class Timer {
 public:
-    //定时器任务类型
-    typedef std::function<void()> CallBack;
+  Timer(uint32_t id, int64_t trigger_time, int64_t interval_time, const TaskCallback& task);
 
-    //定时器类型
-    typedef enum
-    {
-        TIMER_ONCE = 0, //一次触发型
-        TIMER_PERIOD //周期触发型
-    }TimerType;
+  // 执行定时器指定的任务
+  void execute();  
 
-    //超时时间,单位ms
-    int timeout_; 
+  uint32_t id() const {
+    return id_;
+  }
 
-    //定时器类型
-    TimerType timertype_; 
+  int64_t trigger_time() const {
+    return trigger_time_;
+  }
 
-    //回调函数
-    CallBack timercallback_; 
+  bool repeated() const {
+    return repeated_;
+  }
 
-    //定时器剩下的转数
-    int rotation; 
-
-    //定时器所在的时间槽
-    int timeslot; 
-
-    //定时器链表指针
-    Timer *prev;
-    Timer *next;
-
-    Timer(int timeout, TimerType timertype, const CallBack &timercallback);
-    ~Timer();
-
-    //定时器启动，加入管理器
-    void Start(); 
-
-    //定时器撤销，从管理器中删除
-    void Stop(); 
-
-    //重新设置定时器
-    void Adjust(int timeout, Timer::TimerType timertype, const CallBack &timercallback); 
-
+  void UpdateTriggerTime() {
+    trigger_time_ += interval_time_;
+  }
+ 
 private:
-    /* data */
-
+  // 定时器任务封装， id标识、任务回调、触发时间、间隔时间、是否重复
+  uint32_t id_;
+  TaskCallback task_;
+  int64_t trigger_time_;
+  uint32_t interval_time_;
+  bool repeated_;
 };
-
-#endif
