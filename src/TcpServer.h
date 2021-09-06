@@ -1,9 +1,4 @@
-//
-//
-//
-
-#ifndef _TCP_SERVER_H_
-#define _TCP_SERVER_H_
+#pragma once
 
 #include <functional>
 #include <string>
@@ -106,4 +101,3 @@ private:
 };
 
 
-#endif

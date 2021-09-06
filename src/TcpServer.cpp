@@ -1,8 +1,3 @@
-//
-//
-//
-//
-
 #include "TcpServer.h"
 #include <iostream>
 #include <stdio.h>

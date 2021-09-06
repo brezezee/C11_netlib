@@ -1,7 +1,3 @@
-//
-//
-//
-
 #include "HttpServer.h"
 #include <iostream>
 #include <functional>
@@ -21,8 +17,8 @@ HttpServer::HttpServer(EventLoop *loop, const int port, const int iothreadnum, c
 
     threadpool_.Start(); //工作线程池启动
     auto time_manager = TimeWheelManager<>::GetTimerWheelManager();
-    time_manager->AppendTimeWheel(24, 60 * 60 * 1000);
-    time_manager->AppendTimeWheel(60, 60 * 1000);
+    // time_manager->AppendTimeWheel(24, 60 * 60 * 1000);
+    // time_manager->AppendTimeWheel(60, 60 * 1000);
     time_manager->AppendTimeWheel(60, 1000);
     time_manager->Start(); //HttpServer定时器管理器启动
 }
@@ -39,8 +35,7 @@ void HttpServer::HandleNewConnection(const spTcpConnection& sptcpconn)
     // spTimer sptimer = std::make_shared<Timer>(5000, Timer::TimerType::TIMER_ONCE, std::bind(&TcpConnection::Shutdown, sptcpconn));
     auto timerid = TimeWheelManager<>::GetTimerWheelManager()->CreateTimerAfter(5000, 
         std::bind(&TcpConnection::Shutdown, sptcpconn));
-    // sptimer->Start();
-    //可以优化成无锁，放入conn里面就行
+    
     {
         std::lock_guard <std::mutex> lock(mutex_);
         httpsessionnlist_[sptcpconn] = sphttpsession;
@@ -51,14 +46,14 @@ void HttpServer::HandleNewConnection(const spTcpConnection& sptcpconn)
 void HttpServer::HandleMessage(const spTcpConnection& sptcpconn, std::string &msg)
 { 
     std::shared_ptr<HttpSession> sphttpsession;
-    // spTimer sptimer;
+    
     uint32_t timerid;
     {
         std::lock_guard <std::mutex> lock(mutex_);
         sphttpsession = httpsessionnlist_[sptcpconn];
         timerid = timerlist_[sptcpconn];
     }
-    //sptimer->Adjust(5000, Timer::TimerType::TIMER_ONCE, std::bind(&TcpConnection::Shutdown, sptcpconn));
+    
     auto new_timeid = TimeWheelManager<>::GetTimerWheelManager()->RefreshTimer(timerid, 5000, 
         std::bind(&TcpConnection::Shutdown, sptcpconn));
 
@@ -69,8 +64,6 @@ void HttpServer::HandleMessage(const spTcpConnection& sptcpconn, std::string &ms
 
     if(threadpool_.GetThreadNum() > 0)
     {
-        //多线程下，对象的声明周期管理问题，就像在这里，向线程池传入了phttpsession和ptcpconn，怎么知道其指向对象是否已经析构了呢？
-        //所以，需要采用智能指针来管理对象,替换原始指针
         //线程池处理业务，处理完后投递回本IO线程执行send
         //std::cout << "threadpool_.AddTask" << std::endl; 
         HttpRequestContext httprequestcontext;

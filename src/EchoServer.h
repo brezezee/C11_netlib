@@ -1,15 +1,8 @@
-//
-//
-//回射服务器
-
-#ifndef _ECHO_SERVER_H_
-#define _ECHO_SERVER_H_
-
+#pragma once
 #include <string>
 #include "TcpServer.h"
 #include "EventLoop.h"
 #include "TcpConnection.h"
-//#include "Timer.h"
 #include "TimeWheelManager_impl.h"
 
 class EchoServer
@@ -36,4 +29,3 @@ private:
     TcpServer tcpserver_;
 };
 
-#endif

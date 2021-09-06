@@ -1,7 +1,3 @@
-//
-//
-//
-
 #include "EventLoopThreadPool.h"
 
 EventLoopThreadPool::EventLoopThreadPool(EventLoop *mainloop, int threadnum)

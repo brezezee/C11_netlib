@@ -1,6 +1,3 @@
-//
-//
-//
 #include "Socket.h"
 #include <iostream>
 #include <stdio.h>

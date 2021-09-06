@@ -1,10 +1,4 @@
-//
-//
-//
-
-#ifndef _HTTP_SERVER_H_
-#define _HTTP_SERVER_H_
-
+#pragma once
 #include <string>
 #include <mutex>
 #include <map>
@@ -52,7 +46,6 @@ private:
     std::map<spTcpConnection, std::shared_ptr<HttpSession> > httpsessionnlist_; 
 
     //管理定时器,维护活跃连接
-    // std::map<spTcpConnection, spTimer> timerlist_; 
     std::map<spTcpConnection, uint32_t> timerlist_; 
 
     //保护以上两个map的互斥量
@@ -66,4 +59,3 @@ private:
 };
 
 
-#endif

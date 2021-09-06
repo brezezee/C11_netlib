@@ -1,9 +1,4 @@
-//
-//
-//服务器socket类，封装socket描述符及相关的初始化操作
-
-#ifndef _SOCKET_H_
-#define _SOCKET_H_
+#pragma once
 
 #include <sys/socket.h>
 #include <netinet/in.h>
@@ -44,5 +39,3 @@ public:
     bool Close();
 };
 
-
-#endif

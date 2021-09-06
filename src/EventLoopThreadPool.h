@@ -1,16 +1,8 @@
-//
-//
-//EventLoopThread类，表示IO线程,执行特定任务的,线程池的是通用任务线程
-
-#ifndef _EVENTLOOP_THREAD_POOL_H_
-#define _EVENTLOOP_THREAD_POOL_H_
+#pragma once
 
 #include <iostream>
 #include <vector>
 #include <string>
-//#include <queue>
-//#include <mutex>  
-//#include <condition_variable>
 #include "EventLoop.h"
 #include "EventLoopThread.h"
 
@@ -40,4 +32,3 @@ public:
     EventLoop* GetNextLoop();
 };
 
-#endif

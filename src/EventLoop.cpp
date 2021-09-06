@@ -1,6 +1,3 @@
-//
-//
-//
 #include "EventLoop.h"
 #include <iostream>
 #include <sys/eventfd.h>

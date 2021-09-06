@@ -1,9 +1,4 @@
-//
-//
-//IO复用流程的抽象，等待事件，处理事件，执行其他任务
-
-#ifndef _EVENTLOOP_H_
-#define _EVENTLOOP_H_
+#pragma once
 
 #include <iostream>
 #include <functional>
@@ -130,5 +125,3 @@ private:
     Channel wakeupchannel_; 
 };
 
-
-#endif

@@ -1,7 +1,3 @@
-//
-//
-//TcpConnection类，表示客户端连接
-
 #include "TcpConnection.h"
 #include <stdio.h>
 #include <iostream>

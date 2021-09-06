@@ -1,7 +1,3 @@
-//
-//
-//
-
 #include "EventLoopThread.h"
 #include <iostream>
 #include <sstream>

@@ -1,9 +1,4 @@
-//
-//
-//Poller类，对epoll的封装
-
-#ifndef _POLLER_H_
-#define _POLLER_H_
+#pragma once
 
 #include <vector>
 #include <mutex>
@@ -50,4 +45,3 @@ private:
 };
 
 
-#endif

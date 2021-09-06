@@ -1,9 +1,4 @@
-//
-//
-//TcpConnection类，客户端连接的抽象表示
-
-#ifndef _TCP_CONNECTION_H_
-#define _TCP_CONNECTION_H_
+#pragma once
 
 #include <functional>
 #include <string>
@@ -131,5 +126,3 @@ private:
     Callback connectioncleanup_;
 };
 
-
-#endif

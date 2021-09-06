@@ -1,6 +1,3 @@
-//
-//
-//
 #include "EchoServer.h"
 #include <iostream>
 #include <functional>

@@ -1,10 +1,4 @@
-//
-//
-//EventLoopThread类，表示IO线程,执行特定任务的,线程池的是通用任务线程
-
-#ifndef _EVENTLOOP_THREAD_H_
-#define _EVENTLOOP_THREAD_H_
-
+#pragma once
 #include <iostream>
 #include <string>
 #include <thread> 
@@ -39,6 +33,6 @@ public:
     void ThreadFunc();
 };
 
-#endif
+
 
 

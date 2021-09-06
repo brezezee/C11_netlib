@@ -1,9 +1,4 @@
-//
-//Channel类，fd和事件的封装
-
-#ifndef _CHANNEL_H_
-#define _CHANNEL_H_
-
+#pragma once
 #include <functional>
 
 class Channel
@@ -78,5 +73,3 @@ private:
     Callback errorhandler_;
     Callback closehandler_;
 };
-
-#endif
